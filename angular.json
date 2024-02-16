@@ -1,16 +1,16 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "7c3a7be8-31fa-4e33-8017-5d0a6bc83a2c"
+    "analytics": "f209e91c-5d4c-4da1-b624-9bebf6ba57e6"
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "AmorSaude": {
+    "amor-saude": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -23,17 +23,15 @@
             "outputPath": "dist/amor-saude",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
@@ -49,6 +47,12 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -68,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "AmorSaude:build:production"
+              "browserTarget": "amor-saude:build:production"
             },
             "development": {
-              "browserTarget": "AmorSaude:build:development"
+              "browserTarget": "amor-saude:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,29 +83,29 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "AmorSaude:build"
+            "browserTarget": "amor-saude:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css"
             ],
             "scripts": []
           }
         }
       }
     }
-  }
+  },
+  "defaultProject": "amor-saude"
 }
